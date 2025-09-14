@@ -1,25 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../api/axios';
+import { useNavigate } from 'react-router-dom';
+
 
 const CustomerDashboard = () => {
     const [bookings, setBookings] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate();
+
+
+    const fetchBookings = async () => {
+        try {
+            const response = await axiosInstance.get('/bookings/customer');
+            setBookings(response.data);
+        } catch (err) {
+            setError("Failed to fetch your bookings. Please try again.");
+            console.error(err);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     useEffect(() => {
-        const fetchBookings = async () => {
-            try {
-                const response = await axiosInstance.get('/bookings/customer');
-                setBookings(response.data);
-            } catch (error) {
-                setError("Failed to fetch your bookings. Please try again.");
-                console.error(error);
-            } finally {
-                setIsLoading(false);
-            }
-        };
         fetchBookings();
     }, []);
+
+    const navigateToPayment = (bookingId) => {
+        navigate(`/payment/${bookingId}`)
+    }
+
+    const handleCancelBooking = async (bookingId) => {
+        setIsLoading(true);
+        try {
+            await axiosInstance.put(`/bookings/customer/cancel/${bookingId}`);
+            alert('Booking cancelled successfully!');
+            fetchBookings();
+        } catch (err) {
+            alert(err.response?.data?.message || 'Failed to cancel booking.');
+            console.error(err);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     if (isLoading) {
         return <div>Loading your bookings...</div>;
     }
