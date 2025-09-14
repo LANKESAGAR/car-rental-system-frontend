@@ -51,6 +51,7 @@ const LoginPage = () => {
 
             // Redirect based on role
             const userRole = data.role; // role user selected at login
+            console.log(userRole);
             if (userRole === 'ADMIN') {
                 navigate('/admin-dashboard');
             } else {
