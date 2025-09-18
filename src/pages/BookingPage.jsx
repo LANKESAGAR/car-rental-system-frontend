@@ -63,7 +63,6 @@ const BookingPage = () => {
     return (
         <div style={{ padding: '20px' }}>
             <h2>Book a Car</h2>
-            <p>Car Variant ID: {carVariantId}</p>
             <form onSubmit={handleSubmit(onSubmit)}>
                 {bookingError && <p style={{ color: 'red' }}>{bookingError}</p>}
                 {bookingSuccess && <p style={{ color: 'green' }}>{bookingSuccess}</p>}

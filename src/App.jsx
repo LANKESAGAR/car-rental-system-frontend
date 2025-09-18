@@ -9,6 +9,11 @@ import CustomerDashboard from './pages/CustomerDashboard';
 import BookingPage from './pages/BookingPage';
 import useAuth from './hooks/useAuth';
 import PaymentPage from './pages/PaymentPage';
+import AdminDashboard from './pages/AdminDashboard';
+import AdminRegistrationPage from './pages/AdminRegistrationPage';
+import AddCarVariant from './pages/AddCarVariant';
+import AddCar from './pages/AddCar';
+import Header from './components/Header';
 
 
 // A custom component for handling protected routes
@@ -18,9 +23,6 @@ const ProtectedRoute = ({ children, allowedRoles }) => {
   if (isLoading) {
     return <div>Loading...</div>; // Show a loading state while fetching user data
   }
-
-  console.log(user);
-  console.log(user.role);
 
   if (!user || (allowedRoles && !allowedRoles.includes(user.role))) {
     return <Navigate to="/login" replace />;
@@ -33,6 +35,7 @@ function App() {
 
   return (
     <AuthProvider>
+      <Header />
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
@@ -58,7 +61,25 @@ function App() {
 
         <Route path="/admin-dashboard" element={
           <ProtectedRoute allowedRoles={['ADMIN']}>
-            {/* <AdminDashboard /> */}
+            <AdminDashboard />
+          </ProtectedRoute>
+        } />
+
+<Route path="/admin/register" element={
+          <ProtectedRoute allowedRoles={['ADMIN']}>
+            <AdminRegistrationPage />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/admin/variants/add" element={
+          <ProtectedRoute allowedRoles={['ADMIN']}>
+            <AddCarVariant />
+          </ProtectedRoute>
+        } />
+        
+        <Route path="/admin/cars/add" element={
+          <ProtectedRoute allowedRoles={['ADMIN']}>
+            <AddCar />
           </ProtectedRoute>
         } />
 
