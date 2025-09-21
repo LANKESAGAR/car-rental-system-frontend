@@ -1,10 +1,10 @@
-// src/pages/AddCar.jsx (Corrected Code)
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axiosInstance from '../api/axios';
 import { useNavigate } from 'react-router-dom';
+import '../styles/Forms.css';
 
 const addCarSchema = z.object({
   licensePlate: z.string().min(1, "License plate is required"),
@@ -69,43 +69,48 @@ const AddCar = () => {
   };
 
   if (isLoading) {
-    return <div>Loading variants...</div>;
+    return <div className="loading-message">Loading variants...</div>;
   }
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>Add New Car</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {formError && <p style={{ color: 'red' }}>{formError}</p>}
-        {formSuccess && <p style={{ color: 'green' }}>{formSuccess}</p>}
-        <div>
-          <label>License Plate:</label>
-          <input type="text" {...register('licensePlate')} />
-          {errors.licensePlate && <p style={{ color: 'red' }}>{errors.licensePlate.message}</p>}
-        </div>
-        <div>
-          <label>Car Variant:</label>
-          <select {...register('carVariantId')}>
-            <option value="">Select a variant</option>
-            {variants.map(variant => (
-              <option key={variant.id} value={variant.id}>
-                {variant.brand} {variant.model}
-              </option>
-            ))}
-          </select>
-          {errors.carVariantId && <p style={{ color: 'red' }}>{errors.carVariantId.message}</p>}
-        </div>
-        <div>
-          <label>Is Available:</label>
-          <input type="checkbox" {...register('isAvailable')} defaultChecked />
-        </div>
-        <div>
-          <label>Last Service Date:</label>
-          <input type="date" {...register('lastServiceDate')} />
-          {errors.lastServiceDate && <p style={{ color: 'red' }}>{errors.lastServiceDate.message}</p>}
-        </div>
-        <button type="submit">Add Car</button>
-      </form>
+    <div className="form-container">
+        <h2>Add New Car</h2>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            {formError && <p className="message error">{formError}</p>}
+            {formSuccess && <p className="message success">{formSuccess}</p>}
+            
+            <div className="form-group">
+                <label>License Plate:</label>
+                <input type="text" {...register('licensePlate')} />
+                {errors.licensePlate && <p className="error-message">{errors.licensePlate.message}</p>}
+            </div>
+            
+            <div className="form-group">
+                <label>Car Variant:</label>
+                <select {...register('carVariantId')}>
+                    <option value="">Select a variant</option>
+                    {variants.map(variant => (
+                        <option key={variant.id} value={variant.id}>
+                            {variant.make} {variant.model}
+                        </option>
+                    ))}
+                </select>
+                {errors.carVariantId && <p className="error-message">{errors.carVariantId.message}</p>}
+            </div>
+            
+            <div className="form-group checkbox-group">
+                <label>Is Available:</label>
+                <input type="checkbox" {...register('isAvailable')} defaultChecked />
+            </div>
+            
+            <div className="form-group">
+                <label>Last Service Date:</label>
+                <input type="date" {...register('lastServiceDate')} />
+                {errors.lastServiceDate && <p className="error-message">{errors.lastServiceDate.message}</p>}
+            </div>
+            
+            <button type="submit">Add Car</button>
+        </form>
     </div>
   );
 };

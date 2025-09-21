@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axiosInstance from '../api/axios';
 import { useNavigate } from 'react-router-dom';
+import '../styles/Forms.css';
 
 const adminRegistrationSchema = z.object({
   email: z.email("Invalid email address"),
@@ -31,9 +32,9 @@ const AdminRegistrationPage = () => {
       // Send the registration request to the backend.
       // The `Authorization` header will be automatically added by axiosInstance.
       const response = await axiosInstance.post('/auth/admin/register', data);
-      
+
       setRegisterSuccess('Admin account created successfully!');
-      
+
       // Redirect to the admin dashboard after a short delay
       setTimeout(() => {
         navigate('/admin-dashboard');
@@ -45,26 +46,30 @@ const AdminRegistrationPage = () => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div className="form-container">
       <h2>Register New Admin</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {registerError && <p style={{ color: 'red' }}>{registerError}</p>}
-        {registerSuccess && <p style={{ color: 'green' }}>{registerSuccess}</p>}
-        <div>
+        {registerError && <p className="message error">{registerError}</p>}
+        {registerSuccess && <p className="message success">{registerSuccess}</p>}
+
+        <div className="form-group">
           <label>Email:</label>
           <input type="email" {...register('email')} />
-          {errors.email && <p style={{ color: 'red' }}>{errors.email.message}</p>}
+          {errors.email && <p className="error-message">{errors.email.message}</p>}
         </div>
-        <div>
+
+        <div className="form-group">
           <label>Password:</label>
           <input type="password" {...register('password')} />
-          {errors.password && <p style={{ color: 'red' }}>{errors.password.message}</p>}
+          {errors.password && <p className="error-message">{errors.password.message}</p>}
         </div>
-        <div>
+
+        <div className="form-group">
           <label>Employee ID:</label>
           <input type="text" {...register('employeeId')} />
-          {errors.employeeId && <p style={{ color: 'red' }}>{errors.employeeId.message}</p>}
+          {errors.employeeId && <p className="error-message">{errors.employeeId.message}</p>}
         </div>
+
         <button type="submit">Register</button>
       </form>
     </div>

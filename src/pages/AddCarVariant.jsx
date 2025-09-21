@@ -1,10 +1,10 @@
-// src/pages/AddCarVariant.jsx (Corrected Code)
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axiosInstance from '../api/axios';
 import { useNavigate } from 'react-router-dom';
+import '../styles/Forms.css';
 
 const carVariantSchema = z.object({
   make: z.string().min(1, "Make is required"),
@@ -24,10 +24,10 @@ const AddCarVariant = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: zodResolver(carVariantSchema),
     defaultValues: { // Good practice to set default values
-        year: new Date().getFullYear(),
-        seatingCapacity: 4,
-        rentalRatePerHour: 0.0,
-        rentalRatePerDay: 0.0
+      year: new Date().getFullYear(),
+      seatingCapacity: 4,
+      rentalRatePerHour: 0.0,
+      rentalRatePerDay: 0.0
     }
   });
 
@@ -47,48 +47,54 @@ const AddCarVariant = () => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div className="form-container">
       <h2>Add New Car Variant</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {formError && <p style={{ color: 'red' }}>{formError}</p>}
-        {formSuccess && <p style={{ color: 'green' }}>{formSuccess}</p>}
+        {formError && <p className="message error">{formError}</p>}
+        {formSuccess && <p className="message success">{formSuccess}</p>}
 
-        <div>
+        <div className="form-group">
           <label>Make:</label>
           <input type="text" {...register('make')} />
-          {errors.make && <p style={{ color: 'red' }}>{errors.make.message}</p>}
+          {errors.make && <p className="error-message">{errors.make.message}</p>}
         </div>
-        <div>
+
+        <div className="form-group">
           <label>Model:</label>
           <input type="text" {...register('model')} />
-          {errors.model && <p style={{ color: 'red' }}>{errors.model.message}</p>}
+          {errors.model && <p className="error-message">{errors.model.message}</p>}
         </div>
-        <div>
+
+        <div className="form-group">
           <label>Year:</label>
           <input type="number" {...register('year', { valueAsNumber: true })} />
-          {errors.year && <p style={{ color: 'red' }}>{errors.year.message}</p>}
+          {errors.year && <p className="error-message">{errors.year.message}</p>}
         </div>
-        <div>
+
+        <div className="form-group">
           <label>Fuel Type:</label>
           <input type="text" {...register('fuelType')} />
-          {errors.fuelType && <p style={{ color: 'red' }}>{errors.fuelType.message}</p>}
+          {errors.fuelType && <p className="error-message">{errors.fuelType.message}</p>}
         </div>
-        <div>
+
+        <div className="form-group">
           <label>Seating Capacity:</label>
           <input type="number" {...register('seatingCapacity', { valueAsNumber: true })} />
-          {errors.seatingCapacity && <p style={{ color: 'red' }}>{errors.seatingCapacity.message}</p>}
+          {errors.seatingCapacity && <p className="error-message">{errors.seatingCapacity.message}</p>}
         </div>
-        <div>
+
+        <div className="form-group">
           <label>Hourly Rate:</label>
           <input type="number" step="0.01" {...register('rentalRatePerHour', { valueAsNumber: true })} />
-          {errors.rentalRatePerHour && <p style={{ color: 'red' }}>{errors.rentalRatePerHour.message}</p>}
+          {errors.rentalRatePerHour && <p className="error-message">{errors.rentalRatePerHour.message}</p>}
         </div>
-        <div>
+
+        <div className="form-group">
           <label>Daily Rate:</label>
           <input type="number" step="0.01" {...register('rentalRatePerDay', { valueAsNumber: true })} />
-          {errors.rentalRatePerDay && <p style={{ color: 'red' }}>{errors.rentalRatePerDay.message}</p>}
+          {errors.rentalRatePerDay && <p className="error-message">{errors.rentalRatePerDay.message}</p>}
         </div>
-        
+
         <button type="submit">Add Variant</button>
       </form>
     </div>

@@ -1,0 +1,82 @@
+.form-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow-light);
+  }
+  
+  .form-container h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-container form div {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-container label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-container input[type="email"],
+  .form-container input[type="password"],
+  .form-container input[type="text"],
+  .form-container input[type="date"],
+  .form-container select {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-container input:focus,
+  .form-container select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+  }
+  
+  .form-container p {
+    color: var(--error-color);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+  
+  .form-container .link-text {
+    text-align: center;
+    margin-top: 1rem;
+  }
+  
+  .form-container .link-text a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  
+  .form-container .link-text a:hover {
+    text-decoration: underline;
+  }
+  
+  .message.error {
+    color: var(--error-color);
+    background-color: rgba(220, 53, 69, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .message.success {
+    color: var(--success-color);
+    background-color: rgba(40, 167, 69, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }

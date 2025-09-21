@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axiosInstance from '../api/axios';
+import '../styles/Forms.css';
 
 // Zod schema for validation, matching your BookingRequestDTO
 const bookingSchema = z.object({
@@ -61,20 +62,20 @@ const BookingPage = () => {
 
 
     return (
-        <div style={{ padding: '20px' }}>
+        <div className="form-container">
             <h2>Book a Car</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-                {bookingError && <p style={{ color: 'red' }}>{bookingError}</p>}
-                {bookingSuccess && <p style={{ color: 'green' }}>{bookingSuccess}</p>}
-                <div>
+                {bookingError && <p className="message error">{bookingError}</p>}
+                {bookingSuccess && <p className="message success">{bookingSuccess}</p>}
+                <div className="form-group">
                     <label>Start Date:</label>
                     <input type="date" {...register('startDate')} />
-                    {errors.startDate && <p>{errors.startDate.message}</p>}
+                    {errors.startDate && <p className="error-message">{errors.startDate.message}</p>}
                 </div>
-                <div>
+                <div className="form-group">
                     <label>End Date:</label>
                     <input type="date" {...register('endDate')} />
-                    {errors.endDate && <p>{errors.endDate.message}</p>}
+                    {errors.endDate && <p className="error-message">{errors.endDate.message}</p>}
                 </div>
                 <button type="submit">Submit Booking Request</button>
             </form>

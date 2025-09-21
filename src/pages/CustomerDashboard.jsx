@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../api/axios';
 import { useNavigate } from 'react-router-dom';
-
+import '../styles/Forms.css';
+import '../styles/AdminDashboard.css'; 
 
 const CustomerDashboard = () => {
     const [bookings, setBookings] = useState([]);
@@ -45,34 +46,36 @@ const CustomerDashboard = () => {
     };
 
     if (isLoading) {
-        return <div>Loading your bookings...</div>;
+        return <div className="loading-message">Loading your bookings...</div>;
     }
 
     if (error) {
-        return <div style={{ color: 'red', textAlign: 'center' }}>Error: {error}</div>;
+        return <div className="error-message">Error: {error}</div>;
     }
+
     return (
-        <div style={{ padding: '20px' }}>
+        <div className="container">
             <h1>Your Bookings</h1>
             {bookings.length === 0 ? (
                 <p>You have no bookings yet.</p>
             ) : (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                <div className="booking-list">
                     {bookings.map(booking => (
-                        <div key={booking.id} style={{ border: '1px solid #ddd', padding: '15px', borderRadius: '8px' }}>
+                        <div key={booking.id} className="booking-card">
                             <h3>Booking ID: {booking.id}</h3>
                             <p><strong>Status:</strong> {booking.status}</p>
                             <p><strong>Car Model:</strong> {booking.carVariantModel}</p>
                             <p><strong>License Plate:</strong> {booking.assignedCarLicensePlate || 'N/A'}</p>
                             <p><strong>Dates:</strong> {new Date(booking.startDate).toLocaleDateString()} to {new Date(booking.endDate).toLocaleDateString()}</p>
                             <p><strong>Total Cost:</strong> ${booking.totalCost.toFixed(2)}</p>
-                            {/* Conditional Buttons based on status */}
-                            {booking.status === 'APPROVED' && (
-                                <button onClick={() => navigateToPayment(booking.id)}>Proceed to Payment</button>
-                            )}
-                            {booking.status === 'PENDING' && (
-                                <button onClick={() => handleCancelBooking(booking.id)}>Cancel Booking</button>
-                            )}
+                            <div className="card-actions">
+                                {booking.status === 'APPROVED' && (
+                                    <button onClick={() => navigateToPayment(booking.id)}>Proceed to Payment</button>
+                                )}
+                                {booking.status === 'PENDING' && (
+                                    <button onClick={() => handleCancelBooking(booking.id)}>Cancel Booking</button>
+                                )}
+                            </div>
                         </div>
                     ))}
                 </div>

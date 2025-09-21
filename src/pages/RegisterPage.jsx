@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate, Link } from 'react-router-dom';
 import axiosInstance from '../api/axios';
+import '../styles/Forms.css';
 
 // Zod schema for registration, matching the backend's AuthRequest DTO for a customer
 const registerSchema = z.object({
@@ -47,38 +48,36 @@ const RegisterPage = () => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h2>Register as a New Customer</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {registerError && <p style={{ color: 'red' }}>{registerError}</p>}
-        {registerSuccess && <p style={{ color: 'green' }}>{registerSuccess}</p>}
-        
-        <div>
-          <label>Username:</label>
-          <input type="text" {...register('username')} />
-          {errors.username && <p>{errors.username.message}</p>}
-        </div>
-        <div>
-          <label>Email:</label>
-          <input type="email" {...register('email')} />
-          {errors.email && <p>{errors.email.message}</p>}
-        </div>
-        <div>
-          <label>Password:</label>
-          <input type="password" {...register('password')} />
-          {errors.password && <p>{errors.password.message}</p>}
-        </div>
-        <div>
-          <label>Confirm Password:</label>
-          <input type="password" {...register('confirmPassword')} />
-          {errors.confirmPassword && <p>{errors.confirmPassword.message}</p>}
-        </div>
-        
-        <button type="submit">Register</button>
-      </form>
-      <p>Already have an account? <Link to="/login">Login here</Link></p>
+    <div className="form-container">
+        <h2>Register as a New Customer</h2>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            {registerError && <p className="message error">{registerError}</p>}
+            {registerSuccess && <p className="message success">{registerSuccess}</p>}
+            <div className="form-group">
+                <label>Username:</label>
+                <input type="text" {...register('username')} />
+                {errors.username && <p className="error-message">{errors.username.message}</p>}
+            </div>
+            <div className="form-group">
+                <label>Email:</label>
+                <input type="email" {...register('email')} />
+                {errors.email && <p className="error-message">{errors.email.message}</p>}
+            </div>
+            <div className="form-group">
+                <label>Password:</label>
+                <input type="password" {...register('password')} />
+                {errors.password && <p className="error-message">{errors.password.message}</p>}
+            </div>
+            <div className="form-group">
+                <label>Confirm Password:</label>
+                <input type="password" {...register('confirmPassword')} />
+                {errors.confirmPassword && <p className="error-message">{errors.confirmPassword.message}</p>}
+            </div>
+            <button type="submit">Register</button>
+        </form>
+        <p className="link-text">Already have an account? <Link to="/login">Login here</Link></p>
     </div>
-  );
+);
 };
 
 export default RegisterPage;

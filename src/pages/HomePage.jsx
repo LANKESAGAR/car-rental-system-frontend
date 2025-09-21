@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axiosInstance from '../api/axios';
+import '../styles/HomePage.css';
 
 const HomePage = () => {
     const [carVariants, setCarVariants] = useState([]);
@@ -31,21 +32,21 @@ const HomePage = () => {
     }
 
     return (
-        <div style={{ padding: '20px' }}>
+        <div className="container">
             <h1>Available Car Variants</h1>
             {carVariants.length === 0 ? (
                 <p>No car variants are available at the moment. Please check back later.</p>
             ) : (
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+                <div className="car-list">
                     {carVariants.map(variant => (
-                        <div key={variant.id} style={{ border: '1px solid #ccc', padding: '15px', borderRadius: '8px', width: '300px' }}>
+                        <div key={variant.id} className="car-card">
                             <h3>{variant.make} {variant.model}</h3>
                             <p><strong>Year:</strong> {variant.year}</p>
                             <p><strong>Fuel Type:</strong> {variant.fuelType}</p>
                             <p><strong>Seating Capacity:</strong> {variant.seatingCapacity}</p>
-                            <p><strong>Rental Rate:</strong> ${variant.rentalRatePerDay} / day</p>
+                            <p className="rate"><strong>Rental Rate:</strong> ${variant.rentalRatePerDay} / day</p>
                             <Link to={`/book/${variant.id}`}>
-                                <button>Book Now</button>
+                                <button className="full-width">Book Now</button>
                             </Link>
                         </div>
                     ))}

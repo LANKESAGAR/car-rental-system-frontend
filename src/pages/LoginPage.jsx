@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Link } from 'react-router-dom';
 import { data, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import axiosInstance from '../api/axios';
+import '../styles/Forms.css';
 
 const loginSchema = z.object({
     email: z.email("Invalid email address"),
@@ -63,38 +65,39 @@ const LoginPage = () => {
     };
 
     return (
-        <div style={{ padding: '20px' }}>
+        <div className="form-container">
             <h2>Login</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
-                {authError && <p style={{ color: 'red' }}>{authError}</p>}
-                <div>
+                {authError && <p className="message error">{authError}</p>}
+                <div className="form-group">
                     <label>Email:</label>
                     <input type="email" {...register('email')} />
-                    {errors.email && <p>{errors.email.message}</p>}
+                    {errors.email && <p className="error-message">{errors.email.message}</p>}
                 </div>
-                <div>
+                <div className="form-group">
                     <label>Password:</label>
                     <input type="password" {...register('password')} />
-                    {errors.password && <p>{errors.password.message}</p>}
+                    {errors.password && <p className="error-message">{errors.password.message}</p>}
                 </div>
-                <div>
+                <div className="form-group">
                     <label>I am a:</label>
                     <select {...register('role')}>
                         <option value="">Select Role</option>
                         <option value="CUSTOMER">Customer</option>
                         <option value="ADMIN">Admin</option>
                     </select>
-                    {errors.role && <p>{errors.role.message}</p>}
+                    {errors.role && <p className="error-message">{errors.role.message}</p>}
                 </div>
                 {selectedRole === 'ADMIN' && (
-                    <div>
+                    <div className="form-group">
                         <label>Employee ID:</label>
                         <input type="text" {...register('employeeId')} />
-                        {errors.employeeId && <p>{errors.employeeId.message}</p>}
+                        {errors.employeeId && <p className="error-message">{errors.employeeId.message}</p>}
                     </div>
                 )}
                 <button type="submit">Login</button>
             </form>
+            <p className="link-text">Don't have an account? <Link to="/register">Register here</Link></p>
         </div>
     );
 };

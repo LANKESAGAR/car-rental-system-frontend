@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axiosInstance from '../api/axios';
+import '../styles/Forms.css';
 
 const paymentSchema = z.object({
   paymentMethod: z.string().min(1, "Payment method is required"),
@@ -59,41 +60,41 @@ const PaymentPage = () => {
   };
   
   if (isLoading) {
-    return <div>Loading payment page...</div>;
-  }
+    return <div className="loading-message">Loading payment page...</div>;
+}
 
-  if (paymentError && !bookingDetails) {
-    return <div style={{ color: 'red' }}>Error: {paymentError}</div>;
-  }
+if (paymentError && !bookingDetails) {
+    return <div className="error-message">Error: {paymentError}</div>;
+}
 
-  return (
-    <div style={{ padding: '20px' }}>
-      <h2>Complete Your Payment</h2>
-      {bookingDetails && (
-        <div style={{ marginBottom: '20px', border: '1px solid #ccc', padding: '15px' }}>
-          <h3>Booking Summary</h3>
-          <p><strong>Booking ID:</strong> {bookingDetails.id}</p>
-          <p><strong>Car:</strong> {bookingDetails.carVariantModel}</p>
-          <p><strong>Total Cost:</strong> ${bookingDetails.totalCost.toFixed(2)}</p>
-        </div>
-      )}
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {paymentError && <p style={{ color: 'red' }}>{paymentError}</p>}
-        {paymentSuccess && <p style={{ color: 'green' }}>{paymentSuccess}</p>}
-        <div>
-          <label>Payment Method:</label>
-          <input type="text" {...register('paymentMethod')} />
-          {errors.paymentMethod && <p>{errors.paymentMethod.message}</p>}
-        </div>
-        <div>
-          <label>Transaction ID:</label>
-          <input type="text" {...register('transactionId')} />
-          {errors.transactionId && <p>{errors.transactionId.message}</p>}
-        </div>
-        <button type="submit">Pay Now</button>
-      </form>
+return (
+    <div className="form-container">
+        <h2>Complete Your Payment</h2>
+        {bookingDetails && (
+            <div className="booking-summary-card">
+                <h3>Booking Summary</h3>
+                <p><strong>Booking ID:</strong> {bookingDetails.id}</p>
+                <p><strong>Car:</strong> {bookingDetails.carVariantModel}</p>
+                <p><strong>Total Cost:</strong> ${bookingDetails.totalCost.toFixed(2)}</p>
+            </div>
+        )}
+        <form onSubmit={handleSubmit(onSubmit)}>
+            {paymentError && <p className="message error">{paymentError}</p>}
+            {paymentSuccess && <p className="message success">{paymentSuccess}</p>}
+            <div className="form-group">
+                <label>Payment Method:</label>
+                <input type="text" {...register('paymentMethod')} />
+                {errors.paymentMethod && <p className="error-message">{errors.paymentMethod.message}</p>}
+            </div>
+            <div className="form-group">
+                <label>Transaction ID:</label>
+                <input type="text" {...register('transactionId')} />
+                {errors.transactionId && <p className="error-message">{errors.transactionId.message}</p>}
+            </div>
+            <button type="submit">Pay Now</button>
+        </form>
     </div>
-  );
+);
 };
 
 export default PaymentPage;

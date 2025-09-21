@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axiosInstance from '../api/axios';
 import { Link } from 'react-router-dom';
+import '../styles/Forms.css';
+import '../styles/AdminDashboard.css'
 
 const AdminDashboard = () => {
     const [pendingBookings, setPendingBookings] = useState([]);
@@ -64,36 +66,34 @@ const AdminDashboard = () => {
 
 
     if (isLoading) {
-        return <div>Loading admin dashboard...</div>;
+        return <div className="loading-message">Loading admin dashboard...</div>;
     }
 
     if (error) {
-        return <div style={{ color: 'red', textAlign: 'center' }}>Error: {error}</div>;
+        return <div className="error-message">Error: {error}</div>;
     }
 
     return (
-        <div style={{ padding: '20px' }}>
+        <div className="container">
             <h1>Admin Dashboard</h1>
-            <div style={{ marginBottom: '20px' }}>
+            <div className="dashboard-actions">
                 <Link to="/admin/register"><button>Register New Admin</button></Link>
-                <Link to="/admin/variants/add" style={{ marginLeft: '10px' }}><button>Add New Car Variant</button></Link>
-                <Link to="/admin/cars/add" style={{ marginLeft: '10px' }}><button>Add New Car</button></Link>
+                <Link to="/admin/variants/add"><button>Add New Car Variant</button></Link>
+                <Link to="/admin/cars/add"><button>Add New Car</button></Link>
             </div>
             <h2>Pending Bookings</h2>
             {pendingBookings.length === 0 ? (
                 <p>No pending bookings found.</p>
             ) : (
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                <div className="booking-list">
                     {pendingBookings.map(booking => (
-                        <div key={booking.id} style={{ border: '1px solid #ddd', padding: '15px', borderRadius: '8px' }}>
+                        <div key={booking.id} className="booking-card">
                             <h3>Booking ID: {booking.id}</h3>
                             <p><strong>Customer:</strong> {booking.customerName}</p>
                             <p><strong>Car Variant:</strong> {booking.carVariantModel}</p>
                             <p><strong>Dates:</strong> {new Date(booking.startDate).toLocaleDateString()} to {new Date(booking.endDate).toLocaleDateString()}</p>
                             <p><strong>Total Cost:</strong> ${booking.totalCost.toFixed(2)}</p>
-
-                            <div style={{ marginTop: '10px' }}>
-                                {/* Car selection for approval */}
+                            <div className="form-group">
                                 <label htmlFor={`car-select-${booking.id}`}>Assign a Car:</label>
                                 <select id={`car-select-${booking.id}`}>
                                     <option value="">Select Car</option>
@@ -102,8 +102,8 @@ const AdminDashboard = () => {
                                     ))}
                                 </select>
                             </div>
-                            <button
-                                    style={{ marginLeft: '10px' }}
+                            <div className="card-actions">
+                                <button
                                     onClick={() => {
                                         const selectedCarId = document.getElementById(`car-select-${booking.id}`).value;
                                         if (selectedCarId) {
@@ -115,15 +115,16 @@ const AdminDashboard = () => {
                                 >
                                     Approve
                                 </button>
-                                <button style={{ marginLeft: '10px' }} onClick={() => handleReject(booking.id)}>
+                                <button onClick={() => handleReject(booking.id)}>
                                     Reject
                                 </button>
+                            </div>
                         </div>
                     ))}
                 </div>
             )}
         </div>
-    )
+    );
 }
 
 export default AdminDashboard
