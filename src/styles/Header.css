@@ -57,3 +57,64 @@
   button:active {
     transform: translateY(0);
   }
+
+  /* Header container */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: var(--card-bg);
+  box-shadow: var(--shadow-light);
+  color: var(--text-color);
+}
+
+/* Logo */
+.main-header .logo a {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+/* Navigation links container */
+.main-header .nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  list-style: none;
+}
+
+/* Common style for links and buttons */
+.main-header .nav-links a,
+.main-header .nav-links button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background-color: var(--primary-color); /* normal state: blue */
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* smooth hover/click transition */
+}
+
+/* Hover state */
+.main-header .nav-links a:hover,
+.main-header .nav-links button:hover {
+  background-color: var(--hover-orange); /* orange on hover */
+}
+
+/* Active/clicked state */
+.main-header .nav-links a:active,
+.main-header .nav-links button:active {
+  background-color: var(--hover-orange); /* keep orange while clicking */
+}
+
+/* Optional: spacing for dropdowns or logout button alignment */
+.main-header .nav-links li {
+  display: flex;
+  align-items: center;
+}

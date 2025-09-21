@@ -72,6 +72,10 @@ const AddCar = () => {
     return <div className="loading-message">Loading variants...</div>;
   }
 
+  const handleCancel = () => {
+    navigate('/admin-dashboard');
+  };
+
   return (
     <div className="form-container">
         <h2>Add New Car</h2>
@@ -109,7 +113,10 @@ const AddCar = () => {
                 {errors.lastServiceDate && <p className="error-message">{errors.lastServiceDate.message}</p>}
             </div>
             
-            <button type="submit">Add Car</button>
+            <div className="button-group">
+          <button type="submit">Add Car</button>
+          <button type="button" onClick={handleCancel} className="cancel-button">Cancel</button>
+        </div>
         </form>
     </div>
   );

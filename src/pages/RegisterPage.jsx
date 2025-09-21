@@ -36,7 +36,7 @@ const RegisterPage = () => {
         username: data.username,
         role: "CUSTOMER" // Explicitly set the role for a customer registration
       };
-      
+
       const response = await axiosInstance.post('/auth/register', payload);
       setRegisterSuccess(response.data);
       setTimeout(() => {
@@ -48,36 +48,38 @@ const RegisterPage = () => {
   };
 
   return (
-    <div className="form-container">
+    <div className="page-background register">
+      <div className="form-container">
         <h2>Register as a New Customer</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
-            {registerError && <p className="message error">{registerError}</p>}
-            {registerSuccess && <p className="message success">{registerSuccess}</p>}
-            <div className="form-group">
-                <label>Username:</label>
-                <input type="text" {...register('username')} />
-                {errors.username && <p className="error-message">{errors.username.message}</p>}
-            </div>
-            <div className="form-group">
-                <label>Email:</label>
-                <input type="email" {...register('email')} />
-                {errors.email && <p className="error-message">{errors.email.message}</p>}
-            </div>
-            <div className="form-group">
-                <label>Password:</label>
-                <input type="password" {...register('password')} />
-                {errors.password && <p className="error-message">{errors.password.message}</p>}
-            </div>
-            <div className="form-group">
-                <label>Confirm Password:</label>
-                <input type="password" {...register('confirmPassword')} />
-                {errors.confirmPassword && <p className="error-message">{errors.confirmPassword.message}</p>}
-            </div>
-            <button type="submit">Register</button>
+          {registerError && <p className="message error">{registerError}</p>}
+          {registerSuccess && <p className="message success">{registerSuccess}</p>}
+          <div className="form-group">
+            <label>Username:</label>
+            <input type="text" {...register('username')} />
+            {errors.username && <p className="error-message">{errors.username.message}</p>}
+          </div>
+          <div className="form-group">
+            <label>Email:</label>
+            <input type="email" {...register('email')} />
+            {errors.email && <p className="error-message">{errors.email.message}</p>}
+          </div>
+          <div className="form-group">
+            <label>Password:</label>
+            <input type="password" {...register('password')} />
+            {errors.password && <p className="error-message">{errors.password.message}</p>}
+          </div>
+          <div className="form-group">
+            <label>Confirm Password:</label>
+            <input type="password" {...register('confirmPassword')} />
+            {errors.confirmPassword && <p className="error-message">{errors.confirmPassword.message}</p>}
+          </div>
+          <button type="submit">Register</button>
         </form>
         <p className="link-text">Already have an account? <Link to="/login">Login here</Link></p>
+      </div>
     </div>
-);
+  );
 };
 
 export default RegisterPage;

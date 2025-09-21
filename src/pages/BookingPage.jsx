@@ -60,6 +60,9 @@ const BookingPage = () => {
         }
     };
 
+    const handleCancel = () => {
+        navigate('/');
+      };
 
     return (
         <div className="form-container">
@@ -77,7 +80,10 @@ const BookingPage = () => {
                     <input type="date" {...register('endDate')} />
                     {errors.endDate && <p className="error-message">{errors.endDate.message}</p>}
                 </div>
-                <button type="submit">Submit Booking Request</button>
+                <div className="button-group">
+                    <button type="submit">Submit Booking Request</button>
+                    <button type="button" onClick={handleCancel} className="cancel-button">Cancel</button>
+                </div>
             </form>
         </div>
     );

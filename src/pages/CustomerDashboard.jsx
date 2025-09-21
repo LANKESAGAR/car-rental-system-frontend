@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axiosInstance from '../api/axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Forms.css';
-import '../styles/AdminDashboard.css'; 
+import '../styles/AdminDashboard.css';
 
 const CustomerDashboard = () => {
     const [bookings, setBookings] = useState([]);
@@ -54,32 +54,34 @@ const CustomerDashboard = () => {
     }
 
     return (
-        <div className="container">
-            <h1>Your Bookings</h1>
-            {bookings.length === 0 ? (
-                <p>You have no bookings yet.</p>
-            ) : (
-                <div className="booking-list">
-                    {bookings.map(booking => (
-                        <div key={booking.id} className="booking-card">
-                            <h3>Booking ID: {booking.id}</h3>
-                            <p><strong>Status:</strong> {booking.status}</p>
-                            <p><strong>Car Model:</strong> {booking.carVariantModel}</p>
-                            <p><strong>License Plate:</strong> {booking.assignedCarLicensePlate || 'N/A'}</p>
-                            <p><strong>Dates:</strong> {new Date(booking.startDate).toLocaleDateString()} to {new Date(booking.endDate).toLocaleDateString()}</p>
-                            <p><strong>Total Cost:</strong> ${booking.totalCost.toFixed(2)}</p>
-                            <div className="card-actions">
-                                {booking.status === 'APPROVED' && (
-                                    <button onClick={() => navigateToPayment(booking.id)}>Proceed to Payment</button>
-                                )}
-                                {booking.status === 'PENDING' && (
-                                    <button onClick={() => handleCancelBooking(booking.id)}>Cancel Booking</button>
-                                )}
+        <div className="page-background dashboard">
+            <div className="container">
+                <h1 className="main-title">Your Bookings</h1>
+                {bookings.length === 0 ? (
+                    <p>You have no bookings yet.</p>
+                ) : (
+                    <div className="booking-list">
+                        {bookings.map(booking => (
+                            <div key={booking.id} className="booking-card">
+                                <h3>Booking ID: {booking.id}</h3>
+                                <p><strong>Status:</strong> {booking.status}</p>
+                                <p><strong>Car Model:</strong> {booking.carVariantModel}</p>
+                                <p><strong>License Plate:</strong> {booking.assignedCarLicensePlate || 'N/A'}</p>
+                                <p><strong>Dates:</strong> {new Date(booking.startDate).toLocaleDateString()} to {new Date(booking.endDate).toLocaleDateString()}</p>
+                                <p><strong>Total Cost:</strong> ${booking.totalCost.toFixed(2)}</p>
+                                <div className="card-actions">
+                                    {booking.status === 'APPROVED' && (
+                                        <button onClick={() => navigateToPayment(booking.id)}>Proceed to Payment</button>
+                                    )}
+                                    {booking.status === 'PENDING' && (
+                                        <button onClick={() => handleCancelBooking(booking.id)}>Cancel Booking</button>
+                                    )}
+                                </div>
                             </div>
-                        </div>
-                    ))}
-                </div>
-            )}
+                        ))}
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

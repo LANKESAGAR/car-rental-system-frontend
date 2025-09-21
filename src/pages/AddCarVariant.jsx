@@ -46,6 +46,10 @@ const AddCarVariant = () => {
     }
   };
 
+  const handleCancel = () => {
+    navigate('/admin-dashboard');
+  };
+
   return (
     <div className="form-container">
       <h2>Add New Car Variant</h2>
@@ -95,7 +99,10 @@ const AddCarVariant = () => {
           {errors.rentalRatePerDay && <p className="error-message">{errors.rentalRatePerDay.message}</p>}
         </div>
 
-        <button type="submit">Add Variant</button>
+        <div className="button-group">
+          <button type="submit">Add Variant</button>
+          <button type="button" onClick={handleCancel} className="cancel-button">Cancel</button>
+        </div>
       </form>
     </div>
   );

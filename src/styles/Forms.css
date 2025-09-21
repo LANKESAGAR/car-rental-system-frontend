@@ -80,3 +80,23 @@
     text-align: center;
     margin-bottom: 1.5rem;
   }
+
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.button-group button {
+    flex: 1;
+}
+
+.cancel-button {
+    background-color: var(--secondary-color);
+}
+
+.cancel-button:hover {
+    background-color: #5a6268;
+}

@@ -74,55 +74,57 @@ const AdminDashboard = () => {
     }
 
     return (
-        <div className="container">
-            <h1>Admin Dashboard</h1>
-            <div className="dashboard-actions">
-                <Link to="/admin/register"><button>Register New Admin</button></Link>
-                <Link to="/admin/variants/add"><button>Add New Car Variant</button></Link>
-                <Link to="/admin/cars/add"><button>Add New Car</button></Link>
-            </div>
-            <h2>Pending Bookings</h2>
-            {pendingBookings.length === 0 ? (
-                <p>No pending bookings found.</p>
-            ) : (
-                <div className="booking-list">
-                    {pendingBookings.map(booking => (
-                        <div key={booking.id} className="booking-card">
-                            <h3>Booking ID: {booking.id}</h3>
-                            <p><strong>Customer:</strong> {booking.customerName}</p>
-                            <p><strong>Car Variant:</strong> {booking.carVariantModel}</p>
-                            <p><strong>Dates:</strong> {new Date(booking.startDate).toLocaleDateString()} to {new Date(booking.endDate).toLocaleDateString()}</p>
-                            <p><strong>Total Cost:</strong> ${booking.totalCost.toFixed(2)}</p>
-                            <div className="form-group">
-                                <label htmlFor={`car-select-${booking.id}`}>Assign a Car:</label>
-                                <select id={`car-select-${booking.id}`}>
-                                    <option value="">Select Car</option>
-                                    {carOptions[booking.carVariantId]?.map(car => (
-                                        <option key={car.id} value={car.id}>{car.licensePlate}</option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div className="card-actions">
-                                <button
-                                    onClick={() => {
-                                        const selectedCarId = document.getElementById(`car-select-${booking.id}`).value;
-                                        if (selectedCarId) {
-                                            handleApprove(booking.id, selectedCarId);
-                                        } else {
-                                            alert('Please select a car to approve the booking.');
-                                        }
-                                    }}
-                                >
-                                    Approve
-                                </button>
-                                <button onClick={() => handleReject(booking.id)}>
-                                    Reject
-                                </button>
-                            </div>
-                        </div>
-                    ))}
+        <div className="page-background dashboard">
+            <div className="container">
+                <h1 className="main-title">Admin Dashboard</h1>
+                <div className="dashboard-actions">
+                    <Link to="/admin/register"><button>Register New Admin</button></Link>
+                    <Link to="/admin/variants/add"><button>Add New Car Variant</button></Link>
+                    <Link to="/admin/cars/add"><button>Add New Car</button></Link>
                 </div>
-            )}
+                <h2 className="main-title">Pending Bookings</h2>
+                {pendingBookings.length === 0 ? (
+                    <p>No pending bookings found.</p>
+                ) : (
+                    <div className="booking-list">
+                        {pendingBookings.map(booking => (
+                            <div key={booking.id} className="booking-card">
+                                <h3>Booking ID: {booking.id}</h3>
+                                <p><strong>Customer:</strong> {booking.customerName}</p>
+                                <p><strong>Car Variant:</strong> {booking.carVariantModel}</p>
+                                <p><strong>Dates:</strong> {new Date(booking.startDate).toLocaleDateString()} to {new Date(booking.endDate).toLocaleDateString()}</p>
+                                <p><strong>Total Cost:</strong> ${booking.totalCost.toFixed(2)}</p>
+                                <div className="form-group">
+                                    <label htmlFor={`car-select-${booking.id}`}>Assign a Car:</label>
+                                    <select id={`car-select-${booking.id}`}>
+                                        <option value="">Select Car</option>
+                                        {carOptions[booking.carVariantId]?.map(car => (
+                                            <option key={car.id} value={car.id}>{car.licensePlate}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div className="card-actions">
+                                    <button
+                                        onClick={() => {
+                                            const selectedCarId = document.getElementById(`car-select-${booking.id}`).value;
+                                            if (selectedCarId) {
+                                                handleApprove(booking.id, selectedCarId);
+                                            } else {
+                                                alert('Please select a car to approve the booking.');
+                                            }
+                                        }}
+                                    >
+                                        Approve
+                                    </button>
+                                    <button onClick={() => handleReject(booking.id)}>
+                                        Reject
+                                    </button>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

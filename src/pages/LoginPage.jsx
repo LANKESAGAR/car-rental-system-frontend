@@ -65,39 +65,41 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="form-container">
-            <h2>Login</h2>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                {authError && <p className="message error">{authError}</p>}
-                <div className="form-group">
-                    <label>Email:</label>
-                    <input type="email" {...register('email')} />
-                    {errors.email && <p className="error-message">{errors.email.message}</p>}
-                </div>
-                <div className="form-group">
-                    <label>Password:</label>
-                    <input type="password" {...register('password')} />
-                    {errors.password && <p className="error-message">{errors.password.message}</p>}
-                </div>
-                <div className="form-group">
-                    <label>I am a:</label>
-                    <select {...register('role')}>
-                        <option value="">Select Role</option>
-                        <option value="CUSTOMER">Customer</option>
-                        <option value="ADMIN">Admin</option>
-                    </select>
-                    {errors.role && <p className="error-message">{errors.role.message}</p>}
-                </div>
-                {selectedRole === 'ADMIN' && (
+        <div className="page-background login">
+            <div className="form-container">
+                <h2>Login</h2>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    {authError && <p className="message error">{authError}</p>}
                     <div className="form-group">
-                        <label>Employee ID:</label>
-                        <input type="text" {...register('employeeId')} />
-                        {errors.employeeId && <p className="error-message">{errors.employeeId.message}</p>}
+                        <label>Email:</label>
+                        <input type="email" {...register('email')} />
+                        {errors.email && <p className="error-message">{errors.email.message}</p>}
                     </div>
-                )}
-                <button type="submit">Login</button>
-            </form>
-            <p className="link-text">Don't have an account? <Link to="/register">Register here</Link></p>
+                    <div className="form-group">
+                        <label>Password:</label>
+                        <input type="password" {...register('password')} />
+                        {errors.password && <p className="error-message">{errors.password.message}</p>}
+                    </div>
+                    <div className="form-group">
+                        <label>I am a:</label>
+                        <select {...register('role')}>
+                            <option value="">Select Role</option>
+                            <option value="CUSTOMER">Customer</option>
+                            <option value="ADMIN">Admin</option>
+                        </select>
+                        {errors.role && <p className="error-message">{errors.role.message}</p>}
+                    </div>
+                    {selectedRole === 'ADMIN' && (
+                        <div className="form-group">
+                            <label>Employee ID:</label>
+                            <input type="text" {...register('employeeId')} />
+                            {errors.employeeId && <p className="error-message">{errors.employeeId.message}</p>}
+                        </div>
+                    )}
+                    <button type="submit">Login</button>
+                </form>
+                <p className="link-text">Don't have an account? <Link to="/register">Register here</Link></p>
+            </div>
         </div>
     );
 };

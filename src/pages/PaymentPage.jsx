@@ -58,43 +58,45 @@ const PaymentPage = () => {
       setPaymentError(error.response?.data?.message || 'Payment failed. Please try again.');
     }
   };
-  
+
   if (isLoading) {
     return <div className="loading-message">Loading payment page...</div>;
-}
+  }
 
-if (paymentError && !bookingDetails) {
+  if (paymentError && !bookingDetails) {
     return <div className="error-message">Error: {paymentError}</div>;
-}
+  }
 
-return (
-    <div className="form-container">
+  return (
+    <div className="page-background payment">
+      <div className="form-container">
         <h2>Complete Your Payment</h2>
         {bookingDetails && (
-            <div className="booking-summary-card">
-                <h3>Booking Summary</h3>
-                <p><strong>Booking ID:</strong> {bookingDetails.id}</p>
-                <p><strong>Car:</strong> {bookingDetails.carVariantModel}</p>
-                <p><strong>Total Cost:</strong> ${bookingDetails.totalCost.toFixed(2)}</p>
-            </div>
+          <div className="booking-summary-card">
+            <h3>Booking Summary</h3>
+            <p><strong>Booking ID:</strong> {bookingDetails.id}</p>
+            <p><strong>Car:</strong> {bookingDetails.carVariantModel}</p>
+            <p><strong>Total Cost:</strong> ${bookingDetails.totalCost.toFixed(2)}</p>
+          </div>
         )}
         <form onSubmit={handleSubmit(onSubmit)}>
-            {paymentError && <p className="message error">{paymentError}</p>}
-            {paymentSuccess && <p className="message success">{paymentSuccess}</p>}
-            <div className="form-group">
-                <label>Payment Method:</label>
-                <input type="text" {...register('paymentMethod')} />
-                {errors.paymentMethod && <p className="error-message">{errors.paymentMethod.message}</p>}
-            </div>
-            <div className="form-group">
-                <label>Transaction ID:</label>
-                <input type="text" {...register('transactionId')} />
-                {errors.transactionId && <p className="error-message">{errors.transactionId.message}</p>}
-            </div>
-            <button type="submit">Pay Now</button>
+          {paymentError && <p className="message error">{paymentError}</p>}
+          {paymentSuccess && <p className="message success">{paymentSuccess}</p>}
+          <div className="form-group">
+            <label>Payment Method:</label>
+            <input type="text" {...register('paymentMethod')} />
+            {errors.paymentMethod && <p className="error-message">{errors.paymentMethod.message}</p>}
+          </div>
+          <div className="form-group">
+            <label>Transaction ID:</label>
+            <input type="text" {...register('transactionId')} />
+            {errors.transactionId && <p className="error-message">{errors.transactionId.message}</p>}
+          </div>
+          <button type="submit">Pay Now</button>
         </form>
+      </div>
     </div>
-);
+  );
 };
 
 export default PaymentPage;

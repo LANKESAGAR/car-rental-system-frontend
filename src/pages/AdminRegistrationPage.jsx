@@ -45,6 +45,10 @@ const AdminRegistrationPage = () => {
     }
   };
 
+  const handleCancel = () => {
+    navigate('/admin-dashboard');
+  };
+
   return (
     <div className="form-container">
       <h2>Register New Admin</h2>
@@ -70,7 +74,10 @@ const AdminRegistrationPage = () => {
           {errors.employeeId && <p className="error-message">{errors.employeeId.message}</p>}
         </div>
 
-        <button type="submit">Register</button>
+        <div className="button-group">
+          <button type="submit">Register</button>
+          <button type="button" onClick={handleCancel} className="cancel-button">Cancel</button>
+        </div>
       </form>
     </div>
   );

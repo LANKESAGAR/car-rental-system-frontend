@@ -32,26 +32,28 @@ const HomePage = () => {
     }
 
     return (
-        <div className="container">
-            <h1>Available Car Variants</h1>
-            {carVariants.length === 0 ? (
-                <p>No car variants are available at the moment. Please check back later.</p>
-            ) : (
-                <div className="car-list">
-                    {carVariants.map(variant => (
-                        <div key={variant.id} className="car-card">
-                            <h3>{variant.make} {variant.model}</h3>
-                            <p><strong>Year:</strong> {variant.year}</p>
-                            <p><strong>Fuel Type:</strong> {variant.fuelType}</p>
-                            <p><strong>Seating Capacity:</strong> {variant.seatingCapacity}</p>
-                            <p className="rate"><strong>Rental Rate:</strong> ${variant.rentalRatePerDay} / day</p>
-                            <Link to={`/book/${variant.id}`}>
-                                <button className="full-width">Book Now</button>
-                            </Link>
-                        </div>
-                    ))}
-                </div>
-            )}
+        <div className="page-background home">
+            <div className="container">
+                <h1 className="main-title">Available Car Variants</h1>
+                {carVariants.length === 0 ? (
+                    <p>No car variants are available at the moment. Please check back later.</p>
+                ) : (
+                    <div className="car-list">
+                        {carVariants.map(variant => (
+                            <div key={variant.id} className="car-card">
+                                <h3>{variant.make} {variant.model}</h3>
+                                <p><strong>Year:</strong> {variant.year}</p>
+                                <p><strong>Fuel Type:</strong> {variant.fuelType}</p>
+                                <p><strong>Seating Capacity:</strong> {variant.seatingCapacity}</p>
+                                <p className="rate"><strong>Rental Rate:</strong> ${variant.rentalRatePerDay} / day</p>
+                                <Link to={`/book/${variant.id}`}>
+                                    <button className="full-width">Book Now</button>
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
         </div>
     );
 };
