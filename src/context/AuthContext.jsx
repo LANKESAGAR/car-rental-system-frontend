@@ -85,6 +85,19 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // New function to handle password change
+  const changePassword = async (oldPassword, newPassword) => {
+    try {
+      const response = await axiosInstance.post('/auth/change-password', {
+        oldPassword,
+        newPassword,
+      });
+      return { success: true, message: response.data };
+    } catch (error) {
+      return { success: false, message: error.response?.data || 'Failed to change password.' };
+    }
+  };
+
   useEffect(() => {
     const initAuth = async () => {
       if (token) {
@@ -138,7 +151,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, token, refreshToken, login, logout, isLoading }}
+      value={{ user, token, refreshToken, login, logout, isLoading, changePassword }}
     >
       {children}
     </AuthContext.Provider>

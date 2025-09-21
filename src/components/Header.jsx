@@ -24,6 +24,8 @@ const Header = () => {
                             {user.role === 'ADMIN' && (
                                 <li><Link to="/admin-dashboard">Admin Dashboard</Link></li>
                             )}
+                            {/* Add the "Change Password" link here */}
+                            <li><Link to="/change-password">Change Password</Link></li>
                             <li><button onClick={logout}>Logout</button></li>
                         </>
                     ) : (

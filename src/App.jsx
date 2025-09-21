@@ -14,6 +14,13 @@ import AdminRegistrationPage from './pages/AdminRegistrationPage';
 import AddCarVariant from './pages/AddCarVariant';
 import AddCar from './pages/AddCar';
 import Header from './components/Header';
+import EditAdmins from './pages/EditAdmins';
+import EditCars from './pages/EditCars';
+import EditCarVariants from './pages/EditCarVariants';
+import UpdateCar from './pages/UpdateCar';
+import ChangePassword from './pages/ChangePassword';
+
+
 
 
 // A custom component for handling protected routes
@@ -41,6 +48,12 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/" element={<HomePage />} />
 
+        <Route path="/change-password" element={
+          <ProtectedRoute allowedRoles={['ADMIN','CUSTOMER']}>
+            <ChangePassword />
+          </ProtectedRoute>
+        } />
+
         <Route path="/book/:id" element={
           <ProtectedRoute allowedRoles={['CUSTOMER']}>
             <BookingPage />
@@ -65,21 +78,45 @@ function App() {
           </ProtectedRoute>
         } />
 
-<Route path="/admin/register" element={
+        < Route path="/admin/register" element={
           <ProtectedRoute allowedRoles={['ADMIN']}>
             <AdminRegistrationPage />
           </ProtectedRoute>
         } />
-        
+
         <Route path="/admin/variants/add" element={
           <ProtectedRoute allowedRoles={['ADMIN']}>
             <AddCarVariant />
           </ProtectedRoute>
         } />
-        
+
         <Route path="/admin/cars/add" element={
           <ProtectedRoute allowedRoles={['ADMIN']}>
             <AddCar />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/edit/admins" element={
+          <ProtectedRoute allowedRoles={['ADMIN']}>
+            <EditAdmins />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/edit/cars" element={
+          <ProtectedRoute allowedRoles={['ADMIN']}>
+            <EditCars />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/edit/variants" element={
+          <ProtectedRoute allowedRoles={['ADMIN']}>
+            <EditCarVariants />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/admin/cars/edit/:id" element={
+          <ProtectedRoute allowedRoles={['ADMIN']}>
+            <UpdateCar />
           </ProtectedRoute>
         } />
 

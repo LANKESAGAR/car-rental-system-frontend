@@ -9,6 +9,11 @@ const AdminDashboard = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [carOptions, setCarOptions] = useState({});
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
 
     const fetchAdminData = async () => {
         try {
@@ -77,14 +82,20 @@ const AdminDashboard = () => {
         <div className="page-background dashboard">
             <div className="container">
                 <h1 className="main-title">Admin Dashboard</h1>
-                <div className="dashboard-actions">
-                    <Link to="/admin/register"><button>Register New Admin</button></Link>
-                    <Link to="/admin/variants/add"><button>Add New Car Variant</button></Link>
-                    <Link to="/admin/cars/add"><button>Add New Car</button></Link>
+                <div className="dashboard-header">
+                <div className={`dashboard-actions ${isMenuOpen ? 'open' : ''}`}>
+                    <Link to="/admin/register"><button>Register Admin</button></Link>
+                    <Link to="/admin/variants/add"><button>Add Car Variant</button></Link>
+                    <Link to="/admin/cars/add"><button>Add Car</button></Link>
+                    {/* Edit Links */}
+                    <Link to="/admin/edit/admins"><button>Edit Admins</button></Link>
+                    <Link to="/admin/edit/cars"><button>Edit Cars</button></Link>
+                    <Link to="/admin/edit/variants"><button>Edit Variants</button></Link>
                 </div>
+            </div>
                 <h2 className="main-title">Pending Bookings</h2>
                 {pendingBookings.length === 0 ? (
-                    <p>No pending bookings found.</p>
+                    <p style={{'color':'orange'}}>No pending bookings found.</p>
                 ) : (
                     <div className="booking-list">
                         {pendingBookings.map(booking => (

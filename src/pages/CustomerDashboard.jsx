@@ -58,7 +58,7 @@ const CustomerDashboard = () => {
             <div className="container">
                 <h1 className="main-title">Your Bookings</h1>
                 {bookings.length === 0 ? (
-                    <p>You have no bookings yet.</p>
+                    <p style={{'color':'orange'}}>You have no bookings yet.</p>
                 ) : (
                     <div className="booking-list">
                         {bookings.map(booking => (
